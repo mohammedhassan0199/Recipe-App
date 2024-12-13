@@ -7,30 +7,26 @@ function Mealinfo() {
   console.log("Meal ID:", mealid);
 
   // Fetch meal details
-
-
-  const getInfo = async () => {
-    try {
-      const getDetail = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealid}`
-      );
-      const jsonData = await getDetail.json();
-      if (jsonData.meals) {
-        console.log("Meal Details:", jsonData.meals[0]);
-        setInfo(jsonData.meals[0]); // Set the meal details in state
-      } else {
-        setInfo(null); // Handle case where no meal data is returned
-      }
-    } catch (error) {
-      console.error('Error fetching meal info:', error);
-      setInfo(null); // Set `info` to null in case of an error
-    }
-  };
-
   useEffect(() => {
-    
-    getInfo();
+    const getInfo = async () => {
+      try {
+        const getDetail = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealid}`
+        );
+        const jsonData = await getDetail.json();
+        if (jsonData.meals) {
+          console.log("Meal Details:", jsonData.meals[0]);
+          setInfo(jsonData.meals[0]); // Set the meal details in state
+        } else {
+          setInfo(null); // Handle case where no meal data is returned
+        }
+      } catch (error) {
+        console.error('Error fetching meal info:', error);
+        setInfo(null); // Set `info` to null in case of an error
+      }
+    };
 
+    getInfo();
   }, [mealid]); // Dependency array ensures the fetch runs only when `mealid` changes
 
   // Show "Data not found" if `info` is null
