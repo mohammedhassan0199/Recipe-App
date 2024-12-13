@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Mealcards from "./Mealcards";
 
 function Mainpage() {
   const [data, setData] = useState([]); // Initialize as an empty array
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("cake");
   const[msg,setMsg] = useState("")
 
   const mealByName = async () => {
@@ -30,7 +30,9 @@ function Mainpage() {
 
     }
 
-    
+    useEffect(() => {
+      mealByName()
+    },[])
 
   const handleInput = (e) => {
     setSearch(e.target.value);
